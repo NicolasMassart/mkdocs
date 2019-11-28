@@ -121,11 +121,11 @@ def copy(source_path, output_path):
 
     If source_path is a symlink, content of target is copied instead of the link
     """
-    if os.path.islink(src):
-        linkto = os.readlink(src)
-        os.symlink(linkto, dst)
+    if os.path.islink(source_path):
+        linkto = os.readlink(source_path)
+        os.symlink(linkto, output_path)
     else:
-        shutil.copy(src,dst)
+        shutil.copy(source_path, output_path)
 
 def copy_file(source_path, output_path):
     """
