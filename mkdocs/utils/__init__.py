@@ -115,6 +115,17 @@ def reduce_list(data_set):
     return [item for item in data_set if
             item not in seen and not seen.add(item)]
 
+def copy(source_path, output_path):
+    """
+    Copy source_path to output_path, taking symlinks in account.
+
+    If source_path is a symlink, content of target is copied instead of the link
+    """
+    if os.path.islink(src):
+        linkto = os.readlink(src)
+        os.symlink(linkto, dst)
+    else:
+        shutil.copy(src,dst)
 
 def copy_file(source_path, output_path):
     """
@@ -127,8 +138,7 @@ def copy_file(source_path, output_path):
         os.makedirs(output_dir)
     if os.path.isdir(output_path):
         output_path = os.path.join(output_path, os.path.basename(source_path))
-    shutil.copyfile(source_path, output_path)
-
+    copy(source_path, output_path)
 
 def write_file(content, output_path):
     """
